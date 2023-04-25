@@ -23,11 +23,16 @@ class TotalPostsPerWeek extends AbstractCalculator
     /**
      * @param SocialPostTo $postTo
      */
-    protected function doAccumulate(SocialPostTo $postTo): void
+    public function doAccumulate(SocialPostTo $postTo): void
     {
         $key = $postTo->getDate()->format('\W\e\e\k W, Y');
 
         $this->totals[$key] = ($this->totals[$key] ?? 0) + 1;
+    }
+
+    public function getTotals(): array
+    {
+        return $this->totals;
     }
 
     /**
