@@ -73,9 +73,13 @@ class StatisticsController extends Controller
                 'stats' => $this->extractor->extract($stats, self::STAT_LABELS),
             ];
         } catch (\Throwable $throwable) {
+
+            /*
+             * Should not be hiding valid exceptions being thrown and then returning generic messages
+             * */
             http_response_code(500);
 
-            $response = ['message' => 'An error occurred'];
+            $response = ['message' => $throwable->getMessage()];
         }
 
         $this->render($response, 'json', false);
